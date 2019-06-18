@@ -6,6 +6,8 @@ This is a starting point for the code you will be writing before your Fragomen T
 
 Your code will be shared among the team here, and we'll review it together during the in-person interview.
 
+Provide us your completed code challenge by creating a new branch in this repo. Use your first name and the first initial of your last name to name the branch (eg. saraht, johns).
+
 ## The Problem
 
 You are being asked to implement a Web API that lets you manage an archive that stores notable quotations. At minimum, you will need to be able to perform basic CRUD (Create, Read, Update, Delete) operations on Quotes. 
@@ -14,7 +16,7 @@ In the QuotesController, stubs have been created for you that will do just that.
 
 However the main problem is that you've also received a requirement that you need to also provide an additional route that will find the number of pairs of Quotes in your archive that will fit into a text field of a given length. More formally,
 
-Input: A numberic value representing a length of characters in a string
+Input: A numeric value representing a length of characters in a string
 Expected result: The total number of unique pairs of Quotes in your archive that satisfy the following condition:
 > Two quotes qualify if the sum of the length of the text of the two quotes is less than or equal to the provided input.
 
