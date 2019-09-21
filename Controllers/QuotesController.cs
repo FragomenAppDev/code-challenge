@@ -2,45 +2,48 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using CodeChallenge.Model;
+using CodeChallenge.Repository;
 
 namespace CodeChallenge.Controllers
 {
     [Route("api/[controller]")]
     public class QuotesController : ControllerBase
     {
+        private QuoteRepository quoteRepository = new QuoteRepository();
+
         // GET api/quotes
         [HttpGet]
         public IEnumerable<Quote> Get()
         {
-            throw new NotImplementedException();
+            return quoteRepository.GetAll();
         }
 
         // GET api/quotes/5
         [HttpGet("{id}")]
         public Quote Get(int id)
         {
-            throw new NotImplementedException();
+            return quoteRepository.GetById(id);
         }
 
         // POST api/quotes
         [HttpPost]
         public long Post([FromBody] Quote user)
         {
-            throw new NotImplementedException();
+            return quoteRepository.Create(user);
         }
 
         // PUT api/quotes/5
         [HttpPut("{id}")]
         public void Put(long id, [FromBody] Quote user)
         {
-            throw new NotImplementedException();
+            quoteRepository.Update(id, user);
         }
 
         // DELETE api/quotes/5
         [HttpDelete("{id}")]
         public void Delete(long id)
         {
-            throw new NotImplementedException();
+            quoteRepository.Delete(id);
         }     
     }
 }

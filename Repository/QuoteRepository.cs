@@ -44,7 +44,7 @@ namespace CodeChallenge.Repository
         public void Delete(long id)
         {
             ICollection<Quote> contents = GetAll();
-            File.WriteAllText(path, JsonConvert.SerializeObject(contents.Select(x => x.Id != id)));            
+            File.WriteAllText(path, JsonConvert.SerializeObject(contents.Where(x => x.Id != id)));            
         }
     }
 }
