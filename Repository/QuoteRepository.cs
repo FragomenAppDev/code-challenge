@@ -13,8 +13,12 @@ namespace CodeChallenge.Repository
         public ICollection<Quote> GetAll() 
         {
             if (!File.Exists(path)) return new List<Quote>();
-            string contents = File.ReadAllText(path);
-            return JsonConvert.DeserializeObject<ICollection<Quote>>(contents);
+            using (StreamReader fileStreamReader = new StreamReader(path)) {
+                using (JsonReader jsonReader = new JsonTextReader(fileStreamReader)) {
+                    JsonSerializer serializer = new JsonSerializer();
+                    return serializer.Deserialize<ICollection<Quote>>(jsonReader);
+                }
+            }
         }
 
         public Quote GetById(long id)
