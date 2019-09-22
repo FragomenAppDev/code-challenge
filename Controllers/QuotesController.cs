@@ -11,6 +11,11 @@ namespace CodeChallenge.Controllers
     {
         private QuoteRepository quoteRepository = new QuoteRepository();
 
+        public QuotesController()
+        {
+            quoteRepository.CreatePairsDataStruct();
+        }
+
         // GET api/quotes
         [HttpGet]
         public IEnumerable<Quote> Get()

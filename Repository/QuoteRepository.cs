@@ -8,14 +8,8 @@ namespace CodeChallenge.Repository
 {
     public class QuoteRepository
     {
-        private const string path = "data/LargeDb.json";
-        IDictionary<long, long> pairsDictionary = new Dictionary<long, long>();
-
-        public QuoteRepository()
-        {
-            ICollection<Quote> quotes = GetAll();
-            CreatePairsDataStruct(quotes);
-        }
+        private const string path = "data/ShortDb.json";
+        internal IDictionary<long, long> pairsDictionary = new Dictionary<long, long>();
 
         public ICollection<Quote> GetAll() 
         {
@@ -62,12 +56,19 @@ namespace CodeChallenge.Repository
             if(q != null) 
             {
                 contents.Remove(q);
+                File.WriteAllText(path, JsonConvert.SerializeObject(contents));
+                RemoveQuoteFromPairsDataStruct(q);
             }
-            File.WriteAllText(path, JsonConvert.SerializeObject(contents));
-            RemoveQuoteFromPairsDataStruct(q);            
+                        
         }
 
-        private void CreatePairsDataStruct(ICollection<Quote> quotes)
+        public void CreatePairsDataStruct()
+        {
+            ICollection<Quote> quotes = GetAll();
+            CreatePairsDataStruct(quotes);
+        }
+
+        internal void CreatePairsDataStruct(ICollection<Quote> quotes)
         {
             foreach(Quote quote in quotes)
             {
@@ -75,7 +76,7 @@ namespace CodeChallenge.Repository
             }
         }
 
-        private void AddQuoteToPairsDataStruct(Quote quote)
+        internal void AddQuoteToPairsDataStruct(Quote quote)
         {
             long length = quote.Text.Length;
             if(pairsDictionary.ContainsKey(length))
@@ -88,7 +89,7 @@ namespace CodeChallenge.Repository
             }
         }
 
-        private void RemoveQuoteFromPairsDataStruct(Quote quote)
+        internal void RemoveQuoteFromPairsDataStruct(Quote quote)
         {
             long length = quote.Text.Length;
             if(pairsDictionary.ContainsKey(length))
