@@ -25,6 +25,13 @@ namespace CodeChallenge.Controllers
             return quoteRepository.GetById(id);
         }
 
+        // GET api/quotes/pairs/20
+        [HttpGet("pairs/{length}")]
+        public int GetPairs(int length)
+        {
+            return quoteRepository.GetNumberOfPairs(length);
+        }
+
         // POST api/quotes
         [HttpPost]
         public long Post([FromBody] Quote user)
