@@ -27,7 +27,7 @@ namespace CodeChallenge.Controllers
 
         // GET api/quotes/pairs/20
         [HttpGet("pairs/{length}")]
-        public int GetPairs(int length)
+        public long GetPairs(long length)
         {
             return quoteRepository.GetNumberOfPairs(length);
         }

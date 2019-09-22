@@ -8,8 +8,8 @@ namespace CodeChallenge.Repository
 {
     public class QuoteRepository
     {
-        private const string path = "data/ShortDb.json";
-        IDictionary<int, int> pairsDictionary = new Dictionary<int, int>();
+        private const string path = "data/LargeDb.json";
+        IDictionary<long, long> pairsDictionary = new Dictionary<long, long>();
 
         public QuoteRepository()
         {
@@ -77,7 +77,7 @@ namespace CodeChallenge.Repository
 
         private void AddQuoteToPairsDataStruct(Quote quote)
         {
-            int length = quote.Text.Length;
+            long length = quote.Text.Length;
             if(pairsDictionary.ContainsKey(length))
             {
                 pairsDictionary[length] = pairsDictionary[length]+1;
@@ -90,7 +90,7 @@ namespace CodeChallenge.Repository
 
         private void RemoveQuoteFromPairsDataStruct(Quote quote)
         {
-            int length = quote.Text.Length;
+            long length = quote.Text.Length;
             if(pairsDictionary.ContainsKey(length))
             {
                 if(pairsDictionary[length] == 1)
@@ -104,10 +104,10 @@ namespace CodeChallenge.Repository
             } 
         }
 
-        public int GetNumberOfPairs(int length)
+        public long GetNumberOfPairs(long length)
         {
-            int retVal = 0;
-            for (int i = 0; i< length; ++i)
+            long retVal = 0;
+            for (long i = 0; i< length; ++i)
             {
                 if(pairsDictionary.ContainsKey(i))
                 {
@@ -115,7 +115,7 @@ namespace CodeChallenge.Repository
                     {
                         retVal += (pairsDictionary[i] * pairsDictionary[i] -1 ) / 2;
                     }
-                    for (int j = i +1; j <= length-i; ++j)
+                    for (long j = i +1; j <= length-i; ++j)
                     {
                         if(pairsDictionary.ContainsKey(j))
                         {
