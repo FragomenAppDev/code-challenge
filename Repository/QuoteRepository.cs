@@ -37,19 +37,20 @@ namespace CodeChallenge.Repository
             return q.Id;
         }
 
-        public void Update(long id, Quote q)
+        public Quote Update(long id, Quote q)
         {
             ICollection<Quote> contents = GetAll();
             Quote found = contents.FirstOrDefault(x => x.Id == id);
-            if (found == null) return;
+            if (found == null) return null;
             RemoveQuoteFromPairsDataStruct(found);
             found.Author = q.Author;
             found.Text = q.Text;
             File.WriteAllText(path, JsonConvert.SerializeObject(contents));
             AddQuoteToPairsDataStruct(q);
+            return found;
         }
 
-        public void Delete(long id)
+        public bool Delete(long id)
         {
             ICollection<Quote> contents = GetAll();
             Quote q = contents.Where(x => x.Id == id).FirstOrDefault();
@@ -58,8 +59,9 @@ namespace CodeChallenge.Repository
                 contents.Remove(q);
                 File.WriteAllText(path, JsonConvert.SerializeObject(contents));
                 RemoveQuoteFromPairsDataStruct(q);
+                return true;
             }
-                        
+            return false;
         }
 
         public void CreatePairsDataStruct()

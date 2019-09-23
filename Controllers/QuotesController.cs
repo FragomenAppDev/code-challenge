@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using CodeChallenge.Model;
 using CodeChallenge.Repository;
@@ -24,14 +23,22 @@ namespace CodeChallenge.Controllers
         }
 
         // GET api/quotes/5
-        [HttpGet("{id}")]
-        public Quote Get(int id)
+        [HttpGet("{id:long}")]
+        public IActionResult Get(long id)
         {
-            return quoteRepository.GetById(id);
+            Quote quote = quoteRepository.GetById(id);
+            if (quote != null)
+            {
+                return Ok(quote);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         // GET api/quotes/pairs/20
-        [HttpGet("pairs/{length}")]
+        [HttpGet("pairs/{length:long}")]
         public long GetPairs(long length)
         {
             return quoteRepository.GetNumberOfPairs(length);
@@ -39,23 +46,45 @@ namespace CodeChallenge.Controllers
 
         // POST api/quotes
         [HttpPost]
-        public long Post([FromBody] Quote user)
+        public IActionResult Post([FromBody] Quote user)
         {
-            return quoteRepository.Create(user);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+            return Ok(quoteRepository.Create(user));
         }
 
         // PUT api/quotes/5
-        [HttpPut("{id}")]
-        public void Put(long id, [FromBody] Quote user)
+        [HttpPut("{id:long}")]
+        public IActionResult Put(long id, [FromBody] Quote user)
         {
-            quoteRepository.Update(id, user);
+            if(user == null) 
+            {
+                return BadRequest();
+            }
+            if(quoteRepository.Update(id, user) != null)
+            {
+                return Ok();
+            }
+            else 
+            {
+                return NotFound();
+            }
         }
 
         // DELETE api/quotes/5
-        [HttpDelete("{id}")]
-        public void Delete(long id)
+        [HttpDelete("{id:long}")]
+        public IActionResult Delete(long id)
         {
-            quoteRepository.Delete(id);
+            if(quoteRepository.Delete(id))
+            {
+                return Ok();
+            }
+            else 
+            {
+                return NotFound();
+            }
         }     
     }
 }
