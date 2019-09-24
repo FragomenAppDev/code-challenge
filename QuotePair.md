@@ -12,7 +12,8 @@ For each length, I check if a pair of quotes of that length will satisfy the req
 
 After this the next step is to look for all possible pairs that can be formed by combining that lenght quote with all other lengths in the dictionary. To do this I iterate through all the lengths more than that length that can make a possible pair. If such a length is found then the result is incremented by the possible pairs that can be formed by these two length quotes. Here the possible number of pairs is the multiplication of the number of quotes of both lengths.
 
-The runtime for this algorithm is O(K^2)where K is the given input size which will be constant in this case so this reduces to O(1). It takes O(n) to setup the initial data structure.
+The runtime for this algorithm depends on the requested quote pair length and the distribution of quote lengths in the dataset. In the average case this distribution would be a few hundred which can be considered constant so, the runtime will be bound by the requested quote length.  
+But in the worst case the distribution of lengths of quotes in the dataset can be as large the dataset itself and in that case the runtime for this algorithm will be O(n^2).
 
 ## Quote Pairs Unit Test
 I have used XUnit framework to add unit tests to the QuoteRepository. I have added unit tests to test the creation and update of the pairs dictionary and getPairs algorithm.
